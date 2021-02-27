@@ -26,6 +26,7 @@ class Game:
         return card if answer else False
 
     def _choose_minions(self, include_percival):
+        include_morgana = False
         if include_percival:
             include_morgana = self._include_card(card.Morgana())
         include_mordred = self._include_card(card.Mordred())
@@ -40,7 +41,6 @@ class Game:
 
         number_of_players = int(number_of_players)
         board = Board(number_of_players)
-        include_percival = include_morgana = include_mordred = include_oberon = False
 
         include_percival = self._include_card(card.Percival())
 
@@ -99,7 +99,7 @@ class Game:
             else:
                 print("The Quest failed....")
             self.wins.append(res)
-            if len(self.wins) == 5:
+            if sum(self.wins) == 3 or self.wins.count(False) == 3:
                 game.over = True
         else:
             quest.vote_track += 1
